@@ -1,64 +1,80 @@
 # 📊 Game Matching Script
-📌 Описание
+📌 Overview
 
-Этот скрипт сравнивает данные из двух Excel-файлов:
+This script compares data from two Excel files:
 
-source.xlsx — основной источник данных
-needed.xlsx — список данных, которые нужно найти
+source.xlsx — main data source
+needed.xlsx — list of games to search for
 
-И выполняет:
+It performs:
 
-нормализацию текста (очистку)
-поиск частичных совпадений по названию игры
-уточнение совпадений по провайдеру
-формирование итогового файла result.xlsx
-⚙️ Как работает логика
-1. Очистка данных
+text normalization (cleaning)
+partial matching by game name
+provider-based disambiguation
+generation of final output file result.xlsx
+⚙️ How it works
+1. Data Cleaning
 
-Приведение текста к единому виду:
+All text is normalized to ensure consistent matching:
 
-lowercase
-удаление спецсимволов
-нормализация пробелов
-2. Поиск совпадений
-сначала ищется совпадение по названию игры (Game)
-если найдено несколько → уточнение по Provider
-если всё ещё неоднозначно → берутся все варианты
-3. Выходной файл
+converted to lowercase
+special characters are removed
+extra spaces are cleaned
+2. Matching Logic
+First, it searches for partial matches by Game
+If multiple matches are found → it refines by Provider
+If still ambiguous → all matches are returned
+3. Output
 
-Создаётся:
+The final file:
 
 result.xlsx
-📂 Входные файлы
+
+Contains:
+
+matched records
+cleaned structure
+no duplicates
+no helper columns
+📂 Input Files
 source.xlsx
 
-Должен содержать колонки:
+Must contain:
 
 Game
 Provider
 needed.xlsx
 
-Должен содержать колонки:
+Must contain:
 
 Game
 Provider
-📤 Выход
+📤 Output
 
-result.xlsx:
+result.xlsx includes:
 
-очищен от служебных колонок
-без дубликатов
-содержит найденные совпадения
-🚀 Запуск
+matched rows from source
+deduplicated results
+cleaned dataset (no helper columns)
+🚀 How to Run
 
-Установи зависимости:
+Install dependencies:
 
 pip install pandas openpyxl
 
-Запусти скрипт:
+Run the script:
 
 python script.py
-🧠 Особенности
-используется str.contains() → частичное совпадение
-учитывается нормализация текста
-поддерживается fallback логика при дублях
+🧠 Key Features
+partial string matching using str.contains()
+robust text normalization
+fallback logic for ambiguous matches
+provider-level disambiguation
+duplicate cleanup
+🎯 Notes
+
+This script is useful when:
+
+game names are inconsistent or formatted differently
+providers help resolve duplicates
+datasets require fuzzy-like matching without external ML libraries
